@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,10 @@ namespace Rainbow.Application
         /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddJunkyard("https://github.com/RainbowGuard/junkyard.git");
+            var username = Environment.GetEnvironmentVariable("JUNKYARD_USERNAME");
+            var password = Environment.GetEnvironmentVariable("JUNKYARD_PASSWORD");
+
+            services.AddJunkyard("https://github.com/RainbowGuard/junkyard.git", username, password);
         }
 
         /// <summary>
