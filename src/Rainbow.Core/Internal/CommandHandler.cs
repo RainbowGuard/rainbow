@@ -1,4 +1,5 @@
 ﻿using Rainbow.Core.Commands;
+using Rainbow.Core.Entities;
 using Rainbow.Core.Internal.Actions;
 using System;
 
@@ -15,7 +16,8 @@ namespace Rainbow.Core.Internal
 
         public void Handle(DoThingCommand command)
         {
-            var action = new DoThingAction();
+            var repository = (IRepository<FlaggedUser>)_services.GetService(typeof(IRepository<FlaggedUser>));
+            var action = new DoThingAction(repository);
             action.Execute(command);
         }
     }
