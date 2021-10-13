@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Rainbow.Core\Rainbow.Core.csproj" />
     <ProjectReference Include="..\Rainbow.Junkyard\Rainbow.Junkyard.csproj" />
   </ItemGroup>
 

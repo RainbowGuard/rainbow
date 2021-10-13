@@ -1,6 +1,7 @@
 ﻿using LibGit2Sharp;
-using Rainbow.Entities;
-using Rainbow.Junkyard.Exceptions;
+using Rainbow.Core;
+using Rainbow.Core.Entities;
+using Rainbow.Core.Exceptions;
 using System;
 
 namespace Rainbow.Junkyard.Internal

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Rainbow.Entities;
+using Rainbow.Core;
+using Rainbow.Core.Entities;
 using Rainbow.Junkyard.Internal;
 
 namespace Rainbow.Junkyard

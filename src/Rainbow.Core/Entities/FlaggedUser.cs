@@ -1,4 +1,4 @@
-﻿namespace Rainbow.Entities
+﻿namespace Rainbow.Core.Entities
 {
     public class FlaggedUser : IEntity
     {

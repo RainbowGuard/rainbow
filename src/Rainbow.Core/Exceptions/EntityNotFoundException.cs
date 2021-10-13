@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rainbow.Junkyard.Exceptions
+namespace Rainbow.Core.Exceptions
 {
     public class EntityNotFoundException : Exception
     {

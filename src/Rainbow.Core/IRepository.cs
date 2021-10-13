@@ -1,7 +1,7 @@
 ﻿using System;
-using Rainbow.Entities;
+using Rainbow.Core.Entities;
 
-namespace Rainbow.Junkyard
+namespace Rainbow.Core
 {
     public interface IRepository<TEntity> where TEntity : IEntity
     {

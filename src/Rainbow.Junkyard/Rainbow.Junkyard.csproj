@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rainbow.Entities\Rainbow.Entities.csproj" />
+    <ProjectReference Include="..\Rainbow.Core\Rainbow.Core.csproj" />
   </ItemGroup>
 
 </Project>
