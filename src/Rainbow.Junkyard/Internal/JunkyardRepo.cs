@@ -1,6 +1,7 @@
-﻿using System;
-using LibGit2Sharp;
+﻿using LibGit2Sharp;
 using Rainbow.Entities;
+using Rainbow.Junkyard.Exceptions;
+using System;
 
 namespace Rainbow.Junkyard.Internal
 {
@@ -19,25 +20,25 @@ namespace Rainbow.Junkyard.Internal
         public void DeleteEntity(string id)
         {
             Sync();
-            throw new NotImplementedException();
+            throw new EntityNotFoundException();
         }
 
         public bool HasEntity(FlaggedUser entity)
         {
             Sync();
-            throw new NotImplementedException();
+            return false;
         }
 
         public FlaggedUser RetrieveEntity(string id)
         {
             Sync();
-            throw new NotImplementedException();
+            throw new EntityNotFoundException();
         }
 
         public void SetEntity(FlaggedUser entry)
         {
             Sync();
-            throw new NotImplementedException();
+            throw new EntityAlreadyExistsException();
         }
 
         /// <summary>
