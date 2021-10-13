@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Application.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow.Discord.Tests", "Rainbow.Discord.Tests\Rainbow.Discord.Tests.csproj", "{4886F5D8-BFC0-40FD-B0B9-585829BC8DA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.Junkyard", "Rainbow.Junkyard\Rainbow.Junkyard.csproj", "{5D8B6614-0241-4FCA-B37D-B13B5DB0529C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.Junkyard.Tests", "Rainbow.Junkyard.Tests\Rainbow.Junkyard.Tests.csproj", "{8D71CFD9-BF23-422E-A0EB-D17D45EC4FBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{4886F5D8-BFC0-40FD-B0B9-585829BC8DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4886F5D8-BFC0-40FD-B0B9-585829BC8DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4886F5D8-BFC0-40FD-B0B9-585829BC8DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D8B6614-0241-4FCA-B37D-B13B5DB0529C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D8B6614-0241-4FCA-B37D-B13B5DB0529C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D8B6614-0241-4FCA-B37D-B13B5DB0529C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D8B6614-0241-4FCA-B37D-B13B5DB0529C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D71CFD9-BF23-422E-A0EB-D17D45EC4FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D71CFD9-BF23-422E-A0EB-D17D45EC4FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D71CFD9-BF23-422E-A0EB-D17D45EC4FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D71CFD9-BF23-422E-A0EB-D17D45EC4FBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
