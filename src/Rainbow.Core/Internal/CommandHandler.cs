@@ -16,7 +16,7 @@ namespace Rainbow.Core.Internal
         public void Handle(DoThingCommand command)
         {
             var action = new DoThingAction();
-            action.Execute();
+            action.Execute(command);
         }
     }
 }
