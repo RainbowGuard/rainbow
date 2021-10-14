@@ -1,20 +1,28 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Rainbow.Core;
+using Rainbow.Discord;
+using Rainbow.Junkyard;
+using System;
+using System.Threading.Tasks;
 
 namespace Rainbow.Application
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main()
         {
-            CreateHostBuilder(args).Build().Run();
-        }
+            var services = new ServiceCollection();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+            var username = Environment.GetEnvironmentVariable("JUNKYARD_USERNAME");
+            var password = Environment.GetEnvironmentVariable("JUNKYARD_PASSWORD");
+            var token = Environment.GetEnvironmentVariable("DISCORD_BOT_TOKEN");
+
+            services.AddJunkyard("https://github.com/RainbowGuard/junkyard.git", username, password);
+            services.AddDiscord(token);
+
+            services.AddSingleton<CoreService>();
+
+            await Task.Delay(-1);
+        }
     }
 }

@@ -1,20 +1,16 @@
-﻿using LibGit2Sharp;
-using Rainbow.Core;
+﻿using Rainbow.Core;
 using Rainbow.Core.Entities;
 using Rainbow.Core.Exceptions;
 using System;
 
 namespace Rainbow.Junkyard.Internal
 {
-    internal class JunkyardRepo : IRepository<FlaggedUser>, IDisposable
+    internal class JunkyardRepo : IRepository<FlaggedUser>
     {
-        private readonly Repository _repository;
-
         public Uri Location { get; }
 
         public JunkyardRepo(string repositoryUrl, string username, string password)
         {
-            _repository = new Repository(repositoryUrl);
             Location = new Uri(repositoryUrl);
         }
 
@@ -47,11 +43,6 @@ namespace Rainbow.Junkyard.Internal
         /// </summary>
         private void Sync()
         {
-        }
-
-        public void Dispose()
-        {
-            _repository?.Dispose();
         }
     }
 }
