@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Discord;
+﻿using Discord;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Discord.Internal.Events;
-using System.Threading.Tasks;
 using Rainbow.Discord.Internal.SlashCommands;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rainbow.Discord.Internal
 {
@@ -38,7 +38,7 @@ namespace Rainbow.Discord.Internal
 
             client.Ready += () => ClientReady.Handler(client);
             client.InteractionCreated += interaction => InteractionCreated.Handler(client, interaction, slashCommands, _services);
-            
+
             await client.LoginAsync(TokenType.Bot, token);
         }
     }
