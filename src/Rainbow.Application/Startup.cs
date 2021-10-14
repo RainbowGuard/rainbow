@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Core;
+using Rainbow.Discord;
 using Rainbow.Junkyard;
 
 namespace Rainbow.Application
@@ -19,6 +20,7 @@ namespace Rainbow.Application
             var password = Environment.GetEnvironmentVariable("JUNKYARD_PASSWORD");
 
             services.AddJunkyard("https://github.com/RainbowGuard/junkyard.git", username, password);
+            services.AddDiscord();
 
             services.AddSingleton<CoreService>();
         }
