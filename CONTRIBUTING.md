@@ -28,4 +28,4 @@ Neat, work on the core project. All you need to know is:
  - The `CommandHandler` class actually runs the actions. Create a `Handle()` overload for your command and action.
 
 ## The things that need doing
-[Here](https://github.com/RainbowGuard/rainbow/issues)
+[Here](https://github.com/RainbowGuard/rainbow/issues), make sure to check if anyone's been assigned to them and comment if nobody is.
