@@ -18,7 +18,7 @@ namespace Rainbow.Discord
             var client = new DiscordSocketClient(botConfig);
 
             services.AddSingleton(client);
-            services.AddSingleton<IBroadcastService, BroadcastService>();
+            services.AddSingleton<IBroadcastService, DiscordBroadcastService>();
 
             var bot = new DiscordBot(client);
             _ = bot.Initialize(token);

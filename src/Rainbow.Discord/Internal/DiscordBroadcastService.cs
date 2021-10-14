@@ -4,11 +4,11 @@ using Rainbow.Core.Entities;
 
 namespace Rainbow.Discord.Internal
 {
-    internal class BroadcastService : IBroadcastService
+    internal class DiscordBroadcastService : IBroadcastService
     {
         private readonly DiscordSocketClient _client;
 
-        public BroadcastService(DiscordSocketClient client)
+        public DiscordBroadcastService(DiscordSocketClient client)
         {
             _client = client;
         }
