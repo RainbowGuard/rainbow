@@ -24,5 +24,5 @@ to minimize human error between writing a slash command and [registering it](htt
 Neat, work on the core project. All you need to know is:
  - `Actions` describe what the system needs to do.
  - Each `Action` takes a corresponding `Command` that has the `Action`'s parameters.
- - Actions take interfaces in their constructors. Don't worry about interface implementations - if you need a piece of functionality for an action, just create an interface representing that functionality in the project root and someone else will implement it.
+ - Actions take interfaces in their constructors. Don't worry about interface implementations - if you need a piece of functionality for an action, just create an interface representing that functionality in the project root and someone else will implement it. Make sure to use documentation comments in your interfaces to describe what you expect implementers to do.
  - The `CommandHandler` class actually runs the actions. Create a `Handle()` overload for your command and action.
