@@ -3,7 +3,7 @@ using Rainbow.Core.Entities;
 
 namespace Rainbow.Core.Internal.Actions
 {
-    internal class DoThingAction
+    internal class DoThingAction : Action<DoThingCommand>
     {
         private readonly IRepository<FlaggedUser> _repository;
 
@@ -12,7 +12,7 @@ namespace Rainbow.Core.Internal.Actions
             _repository = repository;
         }
 
-        public void Execute(DoThingCommand command)
+        public override void Execute(DoThingCommand command)
         {
         }
     }
