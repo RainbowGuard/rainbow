@@ -5,7 +5,7 @@ using System;
 
 namespace Rainbow.Junkyard.Internal
 {
-    internal class JunkyardRepo : IRepository<FlaggedUser>
+    internal class JunkyardRepo : IDatabase<FlaggedUser>
     {
         public Uri Location { get; }
 

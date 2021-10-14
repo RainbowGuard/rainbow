@@ -9,7 +9,7 @@ namespace Rainbow.Junkyard
     {
         public static IServiceCollection AddJunkyard(this IServiceCollection services, string repositoryUrl, string username, string password)
         {
-            services.AddSingleton<IRepository<FlaggedUser>>(new JunkyardRepo(repositoryUrl, username, password));
+            services.AddSingleton<IDatabase<FlaggedUser>>(new JunkyardRepo(repositoryUrl, username, password));
             return services;
         }
     }
