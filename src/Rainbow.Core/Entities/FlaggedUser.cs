@@ -5,5 +5,7 @@
         public string Id { get; set; }
 
         public string FlagReason { get; set; }
+
+        public ulong FlagCount { get; set; }
     }
 }

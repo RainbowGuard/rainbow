@@ -14,16 +14,10 @@ namespace Rainbow.Discord.Internal
     {
         private readonly ServiceProvider _services;
 
-        public DiscordBot()
+        public DiscordBot(DiscordSocketClient client)
         {
-            var botConfig = new DiscordSocketConfig
-            {
-                AlwaysDownloadUsers = true,
-                GatewayIntents = GatewayIntents.All,
-            };
-
             _services = new ServiceCollection()
-                .AddSingleton(new DiscordSocketClient(botConfig))
+                .AddSingleton(client)
                 .AddSingleton(typeof(DiscordBot).Assembly
                     .GetTypes()
                     .Where(t => t.IsAssignableTo(typeof(SlashCommand)))
