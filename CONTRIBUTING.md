@@ -12,5 +12,6 @@ that uses an external API should have its implementation located in a different 
 project.
 
 ### So how do things get done?
-Commands and actions. Actions take interfaces of services in their constructors, and use interface methods to do things. If external services
+[Commands](https://github.com/RainbowGuard/rainbow/tree/main/src/Rainbow.Core/Commands) and [actions](https://github.com/RainbowGuard/rainbow/tree/main/src/Rainbow.Core/Internal/Actions).
+Actions take interfaces of services in their constructors, and use interface methods to do things. If external services
 want the core to do something, they request the `CoreService` instance and use its `HandleCommand` method to indirectly execute an action.
