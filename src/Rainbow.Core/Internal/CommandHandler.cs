@@ -16,7 +16,7 @@ namespace Rainbow.Core.Internal
 
         public void Handle(DoThingCommand command)
         {
-            var repository = (IRepository<FlaggedUser>)_services.GetService(typeof(IRepository<FlaggedUser>));
+            var repository = (IDatabase<FlaggedUser>)_services.GetService(typeof(IDatabase<FlaggedUser>));
             var action = new DoThingAction(repository);
             action.Execute(command);
         }

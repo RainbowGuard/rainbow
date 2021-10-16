@@ -3,7 +3,7 @@ using Rainbow.Core.Entities;
 
 namespace Rainbow.Core
 {
-    public interface IRepository<TEntity> where TEntity : IEntity
+    public interface IDatabase<TEntity> where TEntity : IEntity
     {
         /// <summary>
         /// The location of the repository.

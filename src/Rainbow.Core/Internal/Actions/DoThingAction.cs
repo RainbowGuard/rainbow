@@ -5,9 +5,9 @@ namespace Rainbow.Core.Internal.Actions
 {
     internal class DoThingAction : Action<DoThingCommand>
     {
-        private readonly IRepository<FlaggedUser> _repository;
+        private readonly IDatabase<FlaggedUser> _repository;
 
-        public DoThingAction(IRepository<FlaggedUser> repository)
+        public DoThingAction(IDatabase<FlaggedUser> repository)
         {
             _repository = repository;
         }

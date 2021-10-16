@@ -15,3 +15,17 @@ project.
 [Commands](https://github.com/RainbowGuard/rainbow/tree/main/src/Rainbow.Core/Commands) and [actions](https://github.com/RainbowGuard/rainbow/tree/main/src/Rainbow.Core/Internal/Actions).
 Actions take interfaces of services in their constructors, and use interface methods to do things. If external services
 want the core to do something, they request the `CoreService` instance and use its `HandleCommand` method to indirectly execute an action.
+
+The Discord project reflects this model, with most interactions happening through [slash commands](https://github.com/RainbowGuard/rainbow/tree/main/src/Rainbow.Discord/Internal/SlashCommands) and using as little state as possible.
+Slash command names are declared in a [separate file](https://github.com/RainbowGuard/rainbow/blob/main/src/Rainbow.Discord/Internal/SlashCommandNames.cs) in order
+to minimize human error between writing a slash command and [registering it](https://github.com/RainbowGuard/rainbow/blob/d92735979e9778ecaeb76fd327500cc906249a8f/src/Rainbow.Discord/Internal/Events/ClientReady.cs#L16-L29).
+
+### I don't get these APIs.
+Neat, work on the core project. All you need to know is:
+ - `Actions` describe what the system needs to do.
+ - Each `Action` takes a corresponding `Command` that has the `Action`'s parameters.
+ - Actions take interfaces in their constructors. Don't worry about interface implementations - if you need a piece of functionality for an action, just create an interface representing that functionality in the project root and someone else will implement it. Make sure to use documentation comments in your interfaces to describe what you expect implementers to do.
+ - The `CommandHandler` class actually runs the actions. Create a `Handle()` overload for your command and action.
+
+## The things that need doing
+[Here](https://github.com/RainbowGuard/rainbow/issues), make sure to check if anyone's been assigned to them and comment if nobody is.
