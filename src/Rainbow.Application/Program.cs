@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Rainbow.Configuration;
 using Rainbow.Core;
 using Rainbow.Discord;
 using System;
-using Microsoft.Extensions.Configuration;
 
 namespace Rainbow.Application
 {
@@ -20,14 +20,15 @@ namespace Rainbow.Application
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((ctx, services) =>
                 {
-                    services.AddDbContextFactory<GuildConfigurationContext>(options
-                        => options.UseSqlite(
+                    services.AddConfiguration(
+                        guildConfigOptions => guildConfigOptions.UseSqlite(
                             ctx.Configuration.GetConnectionString("GuildDatabase"),
                             x => x.MigrationsAssembly("Rainbow.Application")));
 
                     var token = Environment.GetEnvironmentVariable("DISCORD_BOT_TOKEN");
                     services.AddDiscord(token);
 
+                    services.AddSingleton(FlaggedUserStateDatabase.Create());
                     services.AddSingleton<CoreService>();
                 });
     }

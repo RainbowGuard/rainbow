@@ -1,39 +1,41 @@
-﻿using System;
-using Rainbow.Core.Entities;
+﻿using Rainbow.Core.Entities;
+using Rainbow.Core.Exceptions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Rainbow.Core
 {
     public interface IDatabase<TEntity> where TEntity : IEntity
     {
         /// <summary>
-        /// The location of the repository.
-        /// </summary>
-        public Uri Location { get; }
-
-        /// <summary>
-        /// Sets the specified entity in the repository.
+        /// Sets the specified entity in the database.
         /// </summary>
         /// <param name="entry">The entity to create.</param>
-        public void SetEntity(TEntity entry);
+        /// <param name="cancellationToken"></param>
+        public Task SetEntity(TEntity entry, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the entity with the specified ID.
         /// </summary>
         /// <param name="id">The ID to check for.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>The entity with the provided ID.</returns>
-        public TEntity RetrieveEntity(string id);
+        /// <exception cref="EntityNotFoundException">The entity in question does not exist.</exception>
+        public Task<TEntity> RetrieveEntity(string id, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Deletes the entity with the specified ID from the repository, if it exists.
+        /// Deletes the entity with the specified ID from the database, if it exists.
         /// </summary>
         /// <param name="id">The ID of the entity to delete.</param>
-        public void DeleteEntity(string id);
+        /// <param name="cancellationToken"></param>
+        public Task DeleteEntity(string id, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Returns if the entity with the provided ID exists in the repository.
+        /// Returns if the entity with the provided ID exists in the database.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <returns><see langword="true" /> if the entity with the provided ID exists in the repository, otherwise <see langword="false" />.</returns>
-        public bool HasEntity(TEntity entity);
+        /// <param name="id">The ID of the entity to search for.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns><see langword="true" /> if the entity with the provided ID exists in the database, otherwise <see langword="false" />.</returns>
+        public Task<bool> HasEntity(string id, CancellationToken cancellationToken = default);
     }
 }

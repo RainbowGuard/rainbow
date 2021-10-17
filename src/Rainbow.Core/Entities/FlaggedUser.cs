@@ -7,9 +7,9 @@ namespace Rainbow.Core.Entities
     {
         public string Id { get; set; }
 
-        public string FlagReason { get; set; }
+        public string FlagOrigin { get; set; }
 
-        public ulong FlagCount { get; set; }
+        public string FlagReason { get; set; }
 
         private IList<Uri> Attachments { get; set; }
     }

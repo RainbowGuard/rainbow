@@ -1,6 +1,8 @@
 ﻿using Discord.WebSocket;
 using Rainbow.Core;
 using Rainbow.Core.Entities;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Rainbow.Discord.Internal
 {
@@ -13,7 +15,7 @@ namespace Rainbow.Discord.Internal
             _client = client;
         }
 
-        public void BroadcastFlag(FlaggedUser user)
+        public Task BroadcastFlag(FlaggedUser user, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }

@@ -2,6 +2,8 @@
 using Rainbow.Core.Internal;
 using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Rainbow.Core
 {
@@ -14,7 +16,7 @@ namespace Rainbow.Core
             _commandHandler = new CommandHandler(services);
         }
 
-        public void HandleCommand<TCommand>(TCommand command)
+        public Task HandleCommand<TCommand>(TCommand command, CancellationToken cancellationToken = default)
         {
             var handler = _commandHandler.GetType().GetMethods().FirstOrDefault(m =>
             {
@@ -28,7 +30,7 @@ namespace Rainbow.Core
                 throw new CommandNotFoundException(command.GetType().Name);
             }
 
-            handler.Invoke(command, null);
+            return (Task)handler.Invoke(command, new object[] { cancellationToken });
         }
     }
 }
