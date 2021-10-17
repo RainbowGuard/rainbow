@@ -17,7 +17,12 @@ namespace Rainbow.Core
         public void HandleCommand<TCommand>(TCommand command)
         {
             var handler = _commandHandler.GetType().GetMethods().FirstOrDefault(m =>
-                m.GetParameters().FirstOrDefault()?.ParameterType.IsAssignableFrom(command.GetType()) == true);
+            {
+                var parameterType = m.GetParameters().FirstOrDefault()?.ParameterType;
+                return parameterType != null &&
+                       parameterType.IsInstanceOfType(command);
+            });
+
             if (handler == null)
             {
                 throw new CommandNotFoundException(command.GetType().Name);
