@@ -9,8 +9,6 @@ namespace Rainbow.Core.Entities
 
         public string FlagReason { get; set; }
 
-        public ulong FlagCount { get; set; }
-
         private IList<Uri> Attachments { get; set; }
     }
 }

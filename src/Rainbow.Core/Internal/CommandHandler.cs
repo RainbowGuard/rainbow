@@ -1,5 +1,4 @@
 ﻿using Rainbow.Core.Commands;
-using Rainbow.Core.Entities;
 using Rainbow.Core.Internal.Actions;
 using System;
 
@@ -14,10 +13,10 @@ namespace Rainbow.Core.Internal
             _services = services;
         }
 
-        public void Handle(DoThingCommand command)
+        public void Handle(FlagUserCommand command)
         {
-            var repository = (IDatabase<FlaggedUser>)_services.GetService(typeof(IDatabase<FlaggedUser>));
-            var action = new DoThingAction(repository);
+            var broadcast = (IBroadcastService)_services.GetService(typeof(IBroadcastService));
+            var action = new FlagUserAction(broadcast);
             action.Execute(command);
         }
     }
