@@ -1,4 +1,5 @@
 ﻿using Rainbow.Core.Commands;
+using Rainbow.Core.Entities;
 
 namespace Rainbow.Core.Internal.Actions
 {
