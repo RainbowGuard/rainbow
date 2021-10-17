@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rainbow.Core;
 using Rainbow.Core.Entities;
+using Rainbow.Core.Exceptions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,7 +26,13 @@ namespace Rainbow.Configuration
         public async Task<GuildConfiguration> RetrieveEntity(string id, CancellationToken cancellationToken)
         {
             await using var db = _factory.CreateDbContext();
-            return await db.Guilds.FindAsync(id, cancellationToken);
+            var entity = await db.Guilds.FindAsync(new object[] { id }, cancellationToken);
+            if (entity == null)
+            {
+                throw new EntityNotFoundException($"Guild configuration not found: {id}");
+            }
+
+            return entity;
         }
 
         public async Task DeleteEntity(string id, CancellationToken cancellationToken)

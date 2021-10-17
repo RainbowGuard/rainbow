@@ -1,4 +1,6 @@
 ﻿using Rainbow.Core.Entities;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Rainbow.Core
 {
@@ -11,6 +13,7 @@ namespace Rainbow.Core
         /// Broadcasts a user flagged event.
         /// </summary>
         /// <param name="user">The user that was flagged.</param>
-        public void BroadcastFlag(FlaggedUser user);
+        /// <param name="cancellationToken"></param>
+        public Task BroadcastFlag(FlaggedUser user, CancellationToken cancellationToken);
     }
 }

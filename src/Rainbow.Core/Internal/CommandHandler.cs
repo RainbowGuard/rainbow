@@ -1,6 +1,9 @@
 ﻿using Rainbow.Core.Commands;
+using Rainbow.Core.Entities;
 using Rainbow.Core.Internal.Actions;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Rainbow.Core.Internal
 {
@@ -13,11 +16,12 @@ namespace Rainbow.Core.Internal
             _services = services;
         }
 
-        public void Handle(FlagUserCommand command)
+        public Task Handle(FlagUserCommand command, CancellationToken cancellationToken)
         {
             var broadcast = (IBroadcastService)_services.GetService(typeof(IBroadcastService));
-            var action = new FlagUserAction(broadcast);
-            action.Execute(command);
+            var database = (IDatabase<FlaggedUserState>)_services.GetService(typeof(IDatabase<FlaggedUserState>));
+            var action = new FlagUserAction(broadcast, database);
+            return action.Execute(command, cancellationToken);
         }
     }
 }

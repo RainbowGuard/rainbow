@@ -28,6 +28,7 @@ namespace Rainbow.Application
                     var token = Environment.GetEnvironmentVariable("DISCORD_BOT_TOKEN");
                     services.AddDiscord(token);
 
+                    services.AddSingleton(FlaggedUserStateDatabase.Create());
                     services.AddSingleton<CoreService>();
                 });
     }

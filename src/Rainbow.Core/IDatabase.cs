@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Rainbow.Core.Entities;
+using Rainbow.Core.Exceptions;
 using System.Threading;
 using System.Threading.Tasks;
-using Rainbow.Core.Entities;
 
 namespace Rainbow.Core
 {
@@ -20,6 +20,7 @@ namespace Rainbow.Core
         /// <param name="id">The ID to check for.</param>
         /// <param name="cancellationToken"></param>
         /// <returns>The entity with the provided ID.</returns>
+        /// <exception cref="EntityNotFoundException">The entity in question does not exist.</exception>
         public Task<TEntity> RetrieveEntity(string id, CancellationToken cancellationToken = default);
 
         /// <summary>
