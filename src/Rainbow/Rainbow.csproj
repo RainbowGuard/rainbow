@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Modules\Configuration\" />
     <Folder Include="Services\Discord\" />
     <Folder Include="Services\Logging\" />
   </ItemGroup>
