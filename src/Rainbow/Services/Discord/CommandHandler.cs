@@ -6,6 +6,8 @@ using Rainbow.Entities;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using Discord;
+using Rainbow.Services.Logging;
 
 namespace Rainbow.Services.Discord;
 
@@ -15,20 +17,32 @@ public class CommandHandler
     private readonly CommandService _commands;
     private readonly RainbowContext _context;
     private readonly IServiceProvider _services;
+    private readonly Logger _logger;
 
-    public CommandHandler(IServiceProvider services, DiscordSocketClient client, RainbowContext context, CommandService commands)
+    public CommandHandler(IServiceProvider services, DiscordSocketClient client, RainbowContext context, CommandService commands, Logger logger)
     {
         _commands = commands;
         _services = services;
         _context = context;
         _client = client;
+        _logger = logger;
     }
 
     public async Task InstallCommandsAsync()
     {
         await _commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(),
                                         services: _services);
+        _commands.CommandExecuted += OnCommandExecutedAsync;
+        _commands.Log += _logger.LogAsync;
         _client.MessageReceived += HandleCommandAsync;
+    }
+
+    public async Task OnCommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
+    {
+        if (!string.IsNullOrEmpty(result?.ErrorReason))
+        {
+            await context.Channel.SendMessageAsync(result.ErrorReason);
+        }
     }
 
     private async Task HandleCommandAsync(SocketMessage messageParam)
