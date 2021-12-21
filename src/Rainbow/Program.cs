@@ -17,7 +17,7 @@ var client = new DiscordSocketClient(new DiscordSocketConfig
 });
 
 var services = new ServiceCollection()
-    .AddDbContext<GuildConfigurationContext>()
+    .AddDbContext<RainbowContext>()
     .AddSingleton(client)
     .AddSingleton<Logger>()
     .AddSingleton<CommandService>()

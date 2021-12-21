@@ -13,10 +13,10 @@ public class CommandHandler
 {
     private readonly DiscordSocketClient _client;
     private readonly CommandService _commands;
-    private readonly GuildConfigurationContext _context;
+    private readonly RainbowContext _context;
     private readonly IServiceProvider _services;
 
-    public CommandHandler(IServiceProvider services, DiscordSocketClient client, GuildConfigurationContext context, CommandService commands)
+    public CommandHandler(IServiceProvider services, DiscordSocketClient client, RainbowContext context, CommandService commands)
     {
         _commands = commands;
         _services = services;

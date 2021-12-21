@@ -11,10 +11,10 @@ namespace Rainbow.Modules.Configuration;
 [RequireContext(ContextType.Guild)]
 public class GuildConfigurationModule : ModuleBase<SocketCommandContext>
 {
-    private readonly GuildConfigurationContext _context;
+    private readonly RainbowContext _context;
     private readonly Logger _logger;
 
-    public GuildConfigurationModule(GuildConfigurationContext context, Logger logger)
+    public GuildConfigurationModule(RainbowContext context, Logger logger)
     {
         _context = context;
         _logger = logger;

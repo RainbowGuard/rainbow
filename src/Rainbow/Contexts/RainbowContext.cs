@@ -4,15 +4,17 @@ using Rainbow.Entities;
 
 namespace Rainbow.Contexts;
 
-public class GuildConfigurationContext : DbContext
+public class RainbowContext : DbContext
 {
     public DbSet<GuildConfiguration> GuildConfigurations { get; set; }
+    public DbSet<FlaggedUser> FlaggedUsers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseMySql("Database=rainbow;Server=localhost;Port=3306;UID=rainbow;PWD=rainbow;", new MariaDbServerVersion(new Version(10, 5, 9)));
+        => options.UseMySql(Db.ConnectionString, Db.Version);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<GuildConfiguration>().ToTable(nameof(GuildConfiguration));
+        modelBuilder.Entity<FlaggedUser>().ToTable(nameof(FlaggedUser));
     }
 }

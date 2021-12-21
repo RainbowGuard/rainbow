@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Modules\Configuration\" />
-    <Folder Include="Contexts\" />
     <Folder Include="Entities\" />
     <Folder Include="Services\Discord\" />
     <Folder Include="Services\Logging\" />
