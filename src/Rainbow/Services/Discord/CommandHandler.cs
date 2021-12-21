@@ -44,7 +44,6 @@ public class CommandHandler
             var config = await _context.GuildConfigurations
                 .Include(s => s.Id)
                 .Include(s => s.Prefix)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == channel.Guild.Id);
             if (config == null)
             {
