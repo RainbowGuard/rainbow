@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Microsoft.EntityFrameworkCore;
-using Rainbow.Contexts;
+using Rainbow.Database;
 using Rainbow.Entities;
 using Rainbow.Services.Logging;
 using System.Threading.Tasks;

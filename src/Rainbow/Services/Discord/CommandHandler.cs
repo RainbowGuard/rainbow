@@ -1,7 +1,7 @@
 ﻿using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.EntityFrameworkCore;
-using Rainbow.Contexts;
+using Rainbow.Database;
 using Rainbow.Entities;
 using System;
 using System.Reflection;

@@ -6,7 +6,7 @@ using Rainbow.Services.Discord;
 using Rainbow.Services.Logging;
 using System;
 using System.Threading.Tasks;
-using Rainbow.Contexts;
+using Rainbow.Database;
 
 var client = new DiscordSocketClient(new DiscordSocketConfig
 {
