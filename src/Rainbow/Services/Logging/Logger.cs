@@ -6,7 +6,7 @@ namespace Rainbow.Services.Logging;
 
 public class Logger
 {
-    public Task Log(LogMessage msg)
+    public Task LogAsync(LogMessage msg)
     {
         Console.WriteLine(msg.ToString());
         return Task.CompletedTask;

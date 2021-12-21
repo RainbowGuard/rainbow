@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Discord.Commands;
+using Discord.WebSocket;
+using Microsoft.EntityFrameworkCore;
+using Rainbow.Contexts;
+using Rainbow.Entities;
+using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using Discord.Commands;
-using Discord.WebSocket;
 
 namespace Rainbow.Services.Discord;
 
@@ -10,12 +13,14 @@ public class CommandHandler
 {
     private readonly DiscordSocketClient _client;
     private readonly CommandService _commands;
+    private readonly GuildConfigurationContext _context;
     private readonly IServiceProvider _services;
 
-    public CommandHandler(IServiceProvider services, DiscordSocketClient client, CommandService commands)
+    public CommandHandler(IServiceProvider services, DiscordSocketClient client, GuildConfigurationContext context, CommandService commands)
     {
         _commands = commands;
         _services = services;
+        _context = context;
         _client = client;
     }
 
@@ -29,11 +34,31 @@ public class CommandHandler
     private async Task HandleCommandAsync(SocketMessage messageParam)
     {
         if (messageParam is not SocketUserMessage message) return;
-        
+
+        // Read the command prefix
         var argPos = 0;
-        
-        if (!(message.HasCharPrefix('!', ref argPos) ||
-            message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
+        var prefix = GuildConfiguration.DefaultPrefix;
+        if (message.Channel is SocketGuildChannel channel)
+        {
+            // Get the guild's configuration
+            var config = await _context.GuildConfigurations
+                .Include(s => s.Id)
+                .Include(s => s.Prefix)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == channel.Guild.Id);
+            if (config == null)
+            {
+                // Create a new guild configuration
+                config = new GuildConfiguration { Id = channel.Guild.Id };
+                _context.Add(config);
+                await _context.SaveChangesAsync();
+            }
+
+            prefix = config.Prefix;
+        }
+
+        if (!(message.HasStringPrefix(prefix, ref argPos) ||
+              message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
             message.Author.IsBot)
             return;
 

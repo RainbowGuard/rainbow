@@ -6,6 +6,7 @@ using Rainbow.Services.Discord;
 using Rainbow.Services.Logging;
 using System;
 using System.Threading.Tasks;
+using Rainbow.Contexts;
 
 var client = new DiscordSocketClient(new DiscordSocketConfig
 {
@@ -16,6 +17,7 @@ var client = new DiscordSocketClient(new DiscordSocketConfig
 });
 
 var services = new ServiceCollection()
+    .AddDbContext<GuildConfigurationContext>()
     .AddSingleton(client)
     .AddSingleton<Logger>()
     .AddSingleton<CommandService>()
@@ -24,7 +26,7 @@ var services = new ServiceCollection()
 
 await services.GetRequiredService<CommandHandler>().InstallCommandsAsync();
 
-client.Log += services.GetRequiredService<Logger>().Log;
+client.Log += services.GetRequiredService<Logger>().LogAsync;
 
 await client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable("DISCORD_BOT_TOKEN"));
 await client.StartAsync();
