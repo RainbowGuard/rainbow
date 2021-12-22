@@ -2,18 +2,19 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
+using Rainbow.Database;
 using Rainbow.Services.Discord;
 using Rainbow.Services.Logging;
 using System;
 using System.Threading.Tasks;
-using Rainbow.Database;
 
 var client = new DiscordSocketClient(new DiscordSocketConfig
 {
-    GatewayIntents = GatewayIntents.All &
-                     ~GatewayIntents.GuildPresences &
-                     ~GatewayIntents.GuildScheduledEvents &
-                     ~GatewayIntents.GuildInvites,
+    // This warns about an unused guild presences intent, but it's
+    // required to fetch server members, for some reason
+    GatewayIntents = GatewayIntents.All ^
+                     GatewayIntents.GuildScheduledEvents ^
+                     GatewayIntents.GuildInvites,
 });
 
 var services = new ServiceCollection()
