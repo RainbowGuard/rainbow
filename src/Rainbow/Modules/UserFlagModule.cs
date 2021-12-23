@@ -33,7 +33,7 @@ public class UserFlagModule : ModuleBase<SocketCommandContext>
             .Build());
 
         await message.ModifyAsync(props => props.Components = new ComponentBuilder()
-            .WithButton("Revoke ban", new RevokeFlagBanBlip(user.Id), ButtonStyle.Secondary)
+            .WithButton("Revoke ban", new RevokeFlagBanBlip(user.Id), ButtonStyle.Danger)
             .Build());
     }
 }
