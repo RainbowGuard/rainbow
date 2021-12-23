@@ -37,10 +37,11 @@ public class CommandHandler
         _client.MessageReceived += HandleCommandAsync;
     }
 
-    public async Task OnCommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
+    private async Task OnCommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
     {
         if (!string.IsNullOrEmpty(result?.ErrorReason))
         {
+            await _logger.Warn(command.ToString(), result.ToString());
             await context.Channel.SendMessageAsync(result.ErrorReason);
         }
     }
@@ -56,8 +57,6 @@ public class CommandHandler
         {
             // Get the guild's configuration
             var config = await _context.GuildConfigurations
-                .Include(s => s.Id)
-                .Include(s => s.Prefix)
                 .FirstOrDefaultAsync(c => c.Id == channel.Guild.Id);
             if (config == null)
             {
@@ -69,7 +68,7 @@ public class CommandHandler
 
             prefix = config.Prefix;
         }
-
+        
         if (!(message.HasStringPrefix(prefix, ref argPos) ||
               message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
             message.Author.IsBot)
@@ -83,6 +82,6 @@ public class CommandHandler
         await _commands.ExecuteAsync(
             context: context,
             argPos: argPos,
-            services: null);
+            services: _services);
     }
 }

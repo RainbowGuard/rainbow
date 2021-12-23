@@ -23,11 +23,13 @@ var services = new ServiceCollection()
     .AddSingleton<Logger>()
     .AddSingleton<CommandService>()
     .AddSingleton<CommandHandler>()
+    .AddSingleton<InteractionHandler>()
     .BuildServiceProvider();
 
 await services.GetRequiredService<CommandHandler>().InstallCommandsAsync();
 
 client.Log += services.GetRequiredService<Logger>().LogAsync;
+client.ButtonExecuted += services.GetRequiredService<InteractionHandler>().BlipHandler;
 
 await client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable("DISCORD_BOT_TOKEN"));
 await client.StartAsync();

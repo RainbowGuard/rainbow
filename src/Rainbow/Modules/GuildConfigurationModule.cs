@@ -6,7 +6,7 @@ using Rainbow.Entities;
 using Rainbow.Services.Logging;
 using System.Threading.Tasks;
 
-namespace Rainbow.Modules.Configuration;
+namespace Rainbow.Modules;
 
 [RequireContext(ContextType.Guild)]
 public class GuildConfigurationModule : ModuleBase<SocketCommandContext>
@@ -25,12 +25,10 @@ public class GuildConfigurationModule : ModuleBase<SocketCommandContext>
     public async Task PrefixAsync(string prefix)
     {
         var config = await _context.GuildConfigurations
-            .Include(c => c.Id)
-            .Include(c => c.Prefix)
             .FirstOrDefaultAsync(c => c.Id == Context.Guild.Id);
         if (config == null)
         {
-            await _logger.LogAsync(new LogMessage(LogSeverity.Warning, nameof(PrefixAsync), "No guild configuration was found! Creating a new one."));
+            await _logger.Warn(nameof(PrefixAsync), "No guild configuration was found! Creating a new one.");
             config = new GuildConfiguration { Id = Context.Guild.Id };
             _context.Add(config);
         }
