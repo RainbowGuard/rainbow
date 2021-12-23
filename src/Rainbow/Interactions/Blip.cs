@@ -78,4 +78,6 @@ public class Blip
 
         return true;
     }
+
+    public static implicit operator string(Blip blip) => blip.ToString();
 }
