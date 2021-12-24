@@ -8,6 +8,7 @@ using Rainbow.Services.Flagging;
 using Rainbow.Services.Logging;
 using System;
 using System.Threading.Tasks;
+using Rainbow.Interactions;
 
 var client = new DiscordSocketClient(new DiscordSocketConfig
 {
@@ -19,19 +20,20 @@ var client = new DiscordSocketClient(new DiscordSocketConfig
 });
 
 var services = new ServiceCollection()
-    .AddDbContext<RainbowContext>()
     .AddSingleton(client)
-    .AddSingleton<Logger>()
-    .AddSingleton<UserFlags>()
     .AddSingleton<CommandService>()
     .AddSingleton<CommandHandler>()
     .AddSingleton<InteractionHandler>()
+    .AddSingleton<Logger>()
+    .AddSingleton<RevokeFlagBanBlipHandler>()
+    .AddSingleton<UserFlags>()
+    .AddDbContext<RainbowContext>()
     .BuildServiceProvider();
 
 await services.GetRequiredService<CommandHandler>().InstallCommandsAsync();
 
 client.Log += services.GetRequiredService<Logger>().LogAsync;
-client.ButtonExecuted += services.GetRequiredService<InteractionHandler>().BlipHandler;
+client.ButtonExecuted += services.GetRequiredService<InteractionHandler>().HandleBlip;
 
 await client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable("DISCORD_BOT_TOKEN"));
 await client.StartAsync();

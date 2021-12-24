@@ -1,10 +1,9 @@
 ﻿using Discord;
 using Discord.Commands;
-using Rainbow.Database;
 using Rainbow.Interactions;
+using Rainbow.Services.Flagging;
 using Rainbow.Services.Logging;
 using System.Threading.Tasks;
-using Rainbow.Services.Flagging;
 
 namespace Rainbow.Modules;
 
