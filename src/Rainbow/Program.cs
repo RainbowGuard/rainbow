@@ -4,6 +4,7 @@ using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Database;
 using Rainbow.Services.Discord;
+using Rainbow.Services.Flagging;
 using Rainbow.Services.Logging;
 using System;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ var services = new ServiceCollection()
     .AddDbContext<RainbowContext>()
     .AddSingleton(client)
     .AddSingleton<Logger>()
+    .AddSingleton<UserFlags>()
     .AddSingleton<CommandService>()
     .AddSingleton<CommandHandler>()
     .AddSingleton<InteractionHandler>()

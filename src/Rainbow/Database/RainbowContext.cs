@@ -6,6 +6,7 @@ namespace Rainbow.Database;
 
 public class RainbowContext : DbContext
 {
+    public DbSet<Guild> Guilds { get; set; }
     public DbSet<GuildConfiguration> GuildConfigurations { get; set; }
     public DbSet<FlaggedUser> FlaggedUsers { get; set; }
 
@@ -15,7 +16,9 @@ public class RainbowContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Guild>().ToTable(nameof(Guild));
         modelBuilder.Entity<GuildConfiguration>().ToTable(nameof(GuildConfiguration));
-        modelBuilder.Entity<FlaggedUser>().ToTable(nameof(FlaggedUser));
+        modelBuilder.Entity<FlaggedUser>().ToTable(nameof(FlaggedUser))
+            .HasMany(u => u.FlagGuilds);
     }
 }

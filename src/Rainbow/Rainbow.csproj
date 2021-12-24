@@ -20,6 +20,7 @@
     <Folder Include="Interactions\" />
     <Folder Include="Services\Discord\" />
     <Folder Include="Services\Logging\" />
+    <Folder Include="Services\Flagging\" />
   </ItemGroup>
 
   <ItemGroup>
