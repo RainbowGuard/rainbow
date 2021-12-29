@@ -2,7 +2,9 @@
 using Rainbow.Interactions;
 using Rainbow.Services.Logging;
 using System;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using Discord;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Rainbow.Services.Discord;
@@ -37,6 +39,14 @@ public class InteractionHandler
             return;
         }
 
+        if (message.Channel is not SocketTextChannel channel)
+        {
+            await _logger.Warn(nameof(HandleBlip), "Received an interaction, but it was not in a guild channel!");
+            return;
+        }
+
+        var guild = (IGuild)channel.Guild;
+
         var blipString = component.Data.CustomId;
         if (!Blip.TryParse(blipString, out var blip))
         {
@@ -56,7 +66,11 @@ public class InteractionHandler
                 _ => throw new InvalidOperationException($"No blip handler exists for blip \"{blip}\"!"),
             };
 
-            await blipHandler.HandleBlip(blip, component);
+            var result = await blipHandler.HandleBlip(blip, guild, component);
+            if (!result.Success)
+            {
+                await _logger.Warn(nameof(HandleBlip), result.ErrorMessage);
+            }
         }
         catch (Exception e)
         {

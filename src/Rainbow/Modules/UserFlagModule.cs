@@ -19,11 +19,14 @@ public class UserFlagModule : ModuleBase<SocketCommandContext>
         _userFlags = userFlags;
     }
 
-    [Command("botban")]
+    /// <summary>
+    /// Begins a Rainbow ban sequence. This adds a <see cref="RevokeFlagBanBlip"/> to the response embed
+    /// </summary>
+    [Command("rainbowban")]
     [RequireUserPermission(GuildPermission.BanMembers)]
-    public async Task BotBanAsync(IUser user, string reason)
+    public async Task RainbowBanAsync(IUser user, string reason)
     {
-        await _logger.Info(nameof(BotBanAsync),
+        await _logger.Info(nameof(RainbowBanAsync),
             $"User {user} ({user.Id}) has been flagged as a bot and banned from {Context.Guild.Name} ({Context.Guild.Id})");
 
         await _userFlags.FlagUser(Context.Guild, user, reason);
@@ -39,11 +42,11 @@ public class UserFlagModule : ModuleBase<SocketCommandContext>
             .Build());
     }
 
-    [Command("botunban")]
+    [Command("rainbowunban")]
     [RequireUserPermission(GuildPermission.BanMembers)]
-    public async Task BotUnbanAsync(IUser user, string reason)
+    public async Task RainbowUnbanAsync(IUser user, string reason)
     {
-        await _logger.Info(nameof(BotUnbanAsync),
+        await _logger.Info(nameof(RainbowUnbanAsync),
             $"User {user} ({user.Id}) has been unflagged as a bot and unbanned from {Context.Guild.Name} ({Context.Guild.Id})");
 
         await _userFlags.UnflagUser(Context.Guild, user, reason);
