@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Rainbow.Interactions;
+using Rainbow.Services.Discord;
 using Rainbow.Services.Flagging;
 using Rainbow.Services.Logging;
 using System.Threading.Tasks;
@@ -20,7 +21,8 @@ public class UserFlagModule : ModuleBase<SocketCommandContext>
     }
 
     /// <summary>
-    /// Begins a Rainbow ban sequence. This adds a <see cref="RevokeFlagBanBlip"/> to the response embed
+    /// Begins a Rainbow ban sequence. This adds a <see cref="RevokeFlagBanBlip"/> to the response embed,
+    /// which we listen for a response for in the <see cref="InteractionHandler"/>.
     /// </summary>
     [Command("rainbowban")]
     [RequireUserPermission(GuildPermission.BanMembers)]

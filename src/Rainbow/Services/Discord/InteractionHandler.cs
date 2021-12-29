@@ -1,11 +1,10 @@
-﻿using Discord.WebSocket;
+﻿using Discord;
+using Discord.WebSocket;
+using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Interactions;
 using Rainbow.Services.Logging;
 using System;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
-using Discord;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Rainbow.Services.Discord;
 
@@ -24,6 +23,8 @@ public class InteractionHandler
 
     public async Task HandleBlip(SocketMessageComponent component)
     {
+        // I'm not sure if this can actually happen, but I'm checking for it
+        // anyways.
         var message = component.Message;
         if (message == null)
         {
@@ -32,6 +33,8 @@ public class InteractionHandler
             return;
         }
 
+        // If we're sent an interaction, but the message the interaction is attached
+        // to is not one of ours, something is probably wrong.
         if (message.Author.Id != _client.CurrentUser.Id)
         {
             await _logger.Warn(nameof(HandleBlip),
@@ -39,6 +42,8 @@ public class InteractionHandler
             return;
         }
 
+        // We only accept interactions in guild channels, because we need to check permissions
+        // on everything.
         if (message.Channel is not SocketTextChannel channel)
         {
             await _logger.Warn(nameof(HandleBlip), "Received an interaction, but it was not in a guild channel!");
@@ -47,6 +52,7 @@ public class InteractionHandler
 
         var guild = (IGuild)channel.Guild;
 
+        // We try to parse out the blip string here, and fail if we can't.
         var blipString = component.Data.CustomId;
         if (!Blip.TryParse(blipString, out var blip))
         {
@@ -57,7 +63,8 @@ public class InteractionHandler
 
         await _logger.Info(nameof(HandleBlip),
             $"Got blip \"{blip}\"");
-
+        
+        // Execute the blip encoded in the blip string.
         try
         {
             BlipHandler blipHandler = blip switch
