@@ -34,6 +34,8 @@ public class UserFlagModule : ModuleBase<SocketCommandContext>
         await _logger.Info(nameof(RainbowBanAsync),
             $"User {user} ({user.Id}) has been flagged as a bot and banned from {Context.Guild.Name} ({Context.Guild.Id})");
 
+        // TODO: Do some servers want to continue to use a separate mechanism to ban users?
+
         // Create a response message
         await ReplyAsync(
             embed: new EmbedBuilder()
