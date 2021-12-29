@@ -48,12 +48,19 @@ public class InteractionHandler
         await _logger.Info(nameof(HandleBlip),
             $"Got blip \"{blip}\"");
 
-        BlipHandler blipHandler = blip switch
+        try
         {
-            RevokeFlagBanBlip => _services.GetRequiredService<RevokeFlagBanBlipHandler>(),
-            _ => throw new InvalidOperationException($"No blip handler exists for blip \"{blip}\"!"),
-        };
+            BlipHandler blipHandler = blip switch
+            {
+                RevokeFlagBanBlip => _services.GetRequiredService<RevokeFlagBanBlipHandler>(),
+                _ => throw new InvalidOperationException($"No blip handler exists for blip \"{blip}\"!"),
+            };
 
-        await blipHandler.HandleBlip(blip, component);
+            await blipHandler.HandleBlip(blip, component);
+        }
+        catch (Exception e)
+        {
+            await _logger.Error(nameof(HandleBlip), "Failed to execute blip.", e);
+        }
     }
 }
