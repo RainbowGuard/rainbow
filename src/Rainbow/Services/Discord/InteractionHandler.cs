@@ -44,13 +44,11 @@ public class InteractionHandler
 
         // We only accept interactions in guild channels, because we need to check permissions
         // on everything.
-        if (message.Channel is not SocketTextChannel channel)
+        if (message.Channel is not SocketTextChannel { Guild: IGuild guild })
         {
             await _logger.Warn(nameof(HandleBlip), "Received an interaction, but it was not in a guild channel!");
             return;
         }
-
-        var guild = (IGuild)channel.Guild;
 
         // We try to parse out the blip string here, and fail if we can't.
         var blipString = component.Data.CustomId;
