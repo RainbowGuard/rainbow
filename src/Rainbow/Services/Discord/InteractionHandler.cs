@@ -67,8 +67,8 @@ public class InteractionHandler
         {
             BlipHandler blipHandler = blip switch
             {
-                RevokeFlagBanBlip => _services.GetRequiredService<RevokeFlagBanBlipHandler>(),
-                _ => throw new InvalidOperationException($"No blip handler exists for blip \"{blip}\"!"),
+                RevokeFlagBlip => _services.GetRequiredService<RevokeFlagBlipHandler>(),
+                _ => throw new InvalidOperationException($"No blip handler exists for blip type \"{blip.Type}\"!"),
             };
 
             var result = await blipHandler.HandleBlip(blip, guild, component);

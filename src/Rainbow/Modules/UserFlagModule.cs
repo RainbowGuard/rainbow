@@ -21,47 +21,53 @@ public class UserFlagModule : ModuleBase<SocketCommandContext>
     }
 
     /// <summary>
-    /// Begins a Rainbow ban sequence. This adds a <see cref="RevokeFlagBanBlip"/> to the response embed,
+    /// Begins a Rainbow flag sequence. This adds a <see cref="RevokeFlagBlip"/> to the response embed,
     /// which we listen for a response for in the <see cref="InteractionHandler"/>.
     /// </summary>
-    [Command("rainbowban")]
-    [RequireUserPermission(GuildPermission.BanMembers)]
-    public async Task RainbowBanAsync(IUser user, string reason)
+    [Command("rbflag")]
+    [RequireUserPermission(GuildPermission.KickMembers)]
+    public async Task RainbowFlagAsync(IUser user, string reason)
     {
-        // Broadcast a flag to all connected servers
+        // Broadcast a flag event to all connected servers
         await _userFlags.FlagUser(Context.Guild, user, reason);
 
-        await _logger.Info(nameof(RainbowBanAsync),
-            $"User {user} ({user.Id}) has been flagged as a bot and banned from {Context.Guild.Name} ({Context.Guild.Id})");
+        await _logger.Info(nameof(RainbowFlagAsync),
+            $"User {user} ({user.Id}) has been flagged in {Context.Guild.Name} ({Context.Guild.Id})");
 
         // TODO: Do some servers want to continue to use a separate mechanism to ban users?
+        // I should ask if people want the flag and ban functions to be combined, or if
+        // people want to use their own things in addition to this (e.g. for custom ban
+        // messages). I'm leaving this at flag-only for now, but it should be simple enough
+        // to extend this to a ban/unban as well. Maybe I can add a setting for this in the
+        // per-guild configuration. If I add that, I need to remember to update the user
+        // permissions for this command.
 
         // Create a response message
         await ReplyAsync(
             embed: new EmbedBuilder()
-                .WithTitle("User flagged and banned!")
+                .WithTitle("User flagged!")
                 .WithDescription($"{user}: {reason}")
                 .WithColor(Color.Magenta)
                 .Build(),
             components: new ComponentBuilder()
-                .WithButton("Revoke ban", new RevokeFlagBanBlip(user.Id), ButtonStyle.Danger)
+                .WithButton("Unflag", new RevokeFlagBlip(user.Id), ButtonStyle.Danger)
                 .Build(),
             messageReference: Context.Message.Reference);
     }
 
-    [Command("rainbowunban")]
-    [RequireUserPermission(GuildPermission.BanMembers)]
-    public async Task RainbowUnbanAsync(IUser user, string reason)
+    [Command("rbunflag")]
+    [RequireUserPermission(GuildPermission.KickMembers)]
+    public async Task RainbowUnflagAsync(IUser user, string reason)
     {
-        // Broadcast an unflag to all connected servers
+        // Broadcast an unflag event to all connected servers
         await _userFlags.UnflagUser(Context.Guild, user, reason);
 
-        await _logger.Info(nameof(RainbowUnbanAsync),
-            $"User {user} ({user.Id}) has been unflagged as a bot and unbanned from {Context.Guild.Name} ({Context.Guild.Id})");
+        await _logger.Info(nameof(RainbowUnflagAsync),
+            $"User {user} ({user.Id}) has been unflagged in {Context.Guild.Name} ({Context.Guild.Id})");
 
         await ReplyAsync(
             embed: new EmbedBuilder()
-                .WithTitle("User unflagged and unbanned!")
+                .WithTitle("User unflagged!")
                 .WithDescription($"{user}: {reason}")
                 .WithColor(Color.Magenta)
                 .Build(),

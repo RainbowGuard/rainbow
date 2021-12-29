@@ -11,7 +11,7 @@ public class Blip
     /// <summary>
     /// The blip type.
     /// </summary>
-    protected BlipType Type { get; init; }
+    public BlipType Type { get; init; }
 
     /// <summary>
     /// A target user ID. If the blip type does not support this property, it will be left at 0.
@@ -62,7 +62,7 @@ public class Blip
             var type = Enum.Parse<BlipType>(matches.Groups["Type"].Value);
             blip = type switch
             {
-                BlipType.RevokeFlagAndBan => new RevokeFlagBanBlip(targetUserId),
+                BlipType.RevokeFlag => new RevokeFlagBlip(targetUserId),
                 _ => null,
             };
 

@@ -3,5 +3,5 @@
 public enum BlipType
 {
     None,
-    RevokeFlagAndBan,
+    RevokeFlag,
 }

@@ -25,7 +25,7 @@ var services = new ServiceCollection()
     .AddSingleton<CommandHandler>()
     .AddSingleton<InteractionHandler>()
     .AddSingleton<Logger>()
-    .AddSingleton<RevokeFlagBanBlipHandler>()
+    .AddSingleton<RevokeFlagBlipHandler>()
     .AddSingleton<UserFlags>()
     .AddDbContext<RainbowContext>()
     .BuildServiceProvider();

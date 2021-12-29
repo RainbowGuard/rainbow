@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace Rainbow.Interactions;
 
-public class RevokeFlagBanBlipHandler : BlipHandler
+public class RevokeFlagBlipHandler : BlipHandler
 {
     private readonly DiscordSocketClient _client;
 
-    public RevokeFlagBanBlipHandler(DiscordSocketClient client)
+    public RevokeFlagBlipHandler(DiscordSocketClient client)
     {
         _client = client;
     }
