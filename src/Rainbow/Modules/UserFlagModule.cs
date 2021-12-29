@@ -28,35 +28,41 @@ public class UserFlagModule : ModuleBase<SocketCommandContext>
     [RequireUserPermission(GuildPermission.BanMembers)]
     public async Task RainbowBanAsync(IUser user, string reason)
     {
+        // Broadcast a flag to all connected servers
+        await _userFlags.FlagUser(Context.Guild, user, reason);
+
         await _logger.Info(nameof(RainbowBanAsync),
             $"User {user} ({user.Id}) has been flagged as a bot and banned from {Context.Guild.Name} ({Context.Guild.Id})");
 
-        await _userFlags.FlagUser(Context.Guild, user, reason);
-
-        var message = await ReplyAsync(embed: new EmbedBuilder()
-            .WithTitle("User flagged and banned!")
-            .WithDescription($"{user}: {reason}")
-            .WithColor(Color.Magenta)
-            .Build());
-
-        await message.ModifyAsync(props => props.Components = new ComponentBuilder()
-            .WithButton("Revoke ban", new RevokeFlagBanBlip(user.Id), ButtonStyle.Danger)
-            .Build());
+        // Create a response message
+        await ReplyAsync(
+            embed: new EmbedBuilder()
+                .WithTitle("User flagged and banned!")
+                .WithDescription($"{user}: {reason}")
+                .WithColor(Color.Magenta)
+                .Build(),
+            components: new ComponentBuilder()
+                .WithButton("Revoke ban", new RevokeFlagBanBlip(user.Id), ButtonStyle.Danger)
+                .Build(),
+            messageReference: Context.Message.Reference);
     }
 
     [Command("rainbowunban")]
     [RequireUserPermission(GuildPermission.BanMembers)]
     public async Task RainbowUnbanAsync(IUser user, string reason)
     {
+        // Broadcast an unflag to all connected servers
+        await _userFlags.UnflagUser(Context.Guild, user, reason);
+
         await _logger.Info(nameof(RainbowUnbanAsync),
             $"User {user} ({user.Id}) has been unflagged as a bot and unbanned from {Context.Guild.Name} ({Context.Guild.Id})");
 
-        await _userFlags.UnflagUser(Context.Guild, user, reason);
-
-        await ReplyAsync(embed: new EmbedBuilder()
-            .WithTitle("User unflagged and unbanned!")
-            .WithDescription($"{user}: {reason}")
-            .WithColor(Color.Magenta)
-            .Build());
+        await ReplyAsync(
+            embed: new EmbedBuilder()
+                .WithTitle("User unflagged and unbanned!")
+                .WithDescription($"{user}: {reason}")
+                .WithColor(Color.Magenta)
+                .Build(),
+            messageReference: Context.Message.Reference);
     }
 }

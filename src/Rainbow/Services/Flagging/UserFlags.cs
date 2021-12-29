@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Discord;
+using Microsoft.EntityFrameworkCore;
 using Rainbow.Database;
 using Rainbow.Entities;
 using Rainbow.Services.Logging;
@@ -6,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Discord;
 
 namespace Rainbow.Services.Flagging;
 
