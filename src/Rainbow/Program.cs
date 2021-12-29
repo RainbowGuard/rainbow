@@ -3,12 +3,12 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Database;
+using Rainbow.Interactions;
 using Rainbow.Services.Discord;
 using Rainbow.Services.Flagging;
 using Rainbow.Services.Logging;
 using System;
 using System.Threading.Tasks;
-using Rainbow.Interactions;
 
 var client = new DiscordSocketClient(new DiscordSocketConfig
 {
@@ -25,9 +25,9 @@ var services = new ServiceCollection()
     .AddSingleton<CommandHandler>()
     .AddSingleton<InteractionHandler>()
     .AddSingleton<Logger>()
-    .AddSingleton<RevokeFlagBlipHandler>()
     .AddSingleton<UserFlags>()
     .AddDbContext<RainbowContext>()
+    .AddBlipHandlers()
     .BuildServiceProvider();
 
 await services.GetRequiredService<CommandHandler>().InstallCommandsAsync();
