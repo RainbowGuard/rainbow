@@ -6,5 +6,5 @@ namespace Rainbow.Interactions;
 
 public abstract class BlipHandler
 {
-    public abstract Task HandleBlip(Blip blip, IGuildUser member, SocketMessageComponent component);
+    public abstract Task HandleBlip(Blip blip, IGuildUser activatingMember, SocketMessageComponent component);
 }

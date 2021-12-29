@@ -1,4 +1,5 @@
 ﻿using Discord;
+using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Rainbow.Interactions;
@@ -6,7 +7,6 @@ using Rainbow.Services.Logging;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using Discord.Commands;
 
 namespace Rainbow.Services.Discord;
 
@@ -63,7 +63,7 @@ public class InteractionHandler
 
         await _logger.Info(nameof(HandleBlip),
             $"Got blip \"{blip}\"");
-        
+
         try
         {
             // Get the handler for the provided blip.
